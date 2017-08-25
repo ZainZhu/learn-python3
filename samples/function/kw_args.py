@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-
+'''
+Happy end
+'''
 def print_scores(**kw):
     print('      Name  Score')
     print('------------------')
