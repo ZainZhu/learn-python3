@@ -3,6 +3,7 @@
 
 from collections import Iterable, Iterator
 
+
 def g():
     yield 1
     yield 2
