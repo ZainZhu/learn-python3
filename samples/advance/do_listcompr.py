@@ -16,3 +16,21 @@ L2 = [s.lower() for s in L1 if isinstance(s, str)]
 print("L1 is: ", L1)
 print("L2 is: ", L2)
 
+L3 = [s.lower() if isinstance(s, str) else s for s in L1]
+print("L3 is: ", L3)
+
+
+def f(x):
+    if isinstance(x, str):
+        return x.lower()
+    elif x is None:
+        return 0
+    else:
+        return x
+
+L4 = [f(s) for s in L1]
+print("L4 is: ", L4)
+
+L5 = [s.lower() if isinstance(s, str) else 0 if s is None else s for s in L1]
+print("L5 is: ", L5)
+
