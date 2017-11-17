@@ -3,19 +3,15 @@
 
 
 def triangles():
-    list_triangles = [0, 1, 0]
-    while True:
-        yield list_triangles[1:-1]
-        current_p = list_triangles.__len__() - 1
-        list_triangles.append(0)
-        while current_p > 0:
-            list_triangles[current_p] += list_triangles[current_p - 1]
-            current_p -= 1
+    list_tr = [1]
+    while 1:
+        yield list_tr
+        list_tr = [1] + [list_tr[i] + list_tr[i + 1] for i in range(len(list_tr) - 1)] + [1]
 
 
-n = 0
+n = 10
 for t in triangles():
     print(t)
-    n = n + 1
-    if n == 10:
+    n = n - 1
+    if n < 1:
         break
