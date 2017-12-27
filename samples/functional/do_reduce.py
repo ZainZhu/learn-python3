@@ -16,9 +16,11 @@ CHAR_TO_INT = {
     '9': 9
 }
 
+
 def str2int(s):
     ints = map(lambda ch: CHAR_TO_INT[ch], s)
     return reduce(lambda x, y: x * 10 + y, ints)
+
 
 print(str2int('0'))
 print(str2int('12300'))
@@ -38,9 +40,11 @@ CHAR_TO_FLOAT = {
     '.': -1
 }
 
+
 def str2float(s):
     nums = map(lambda ch: CHAR_TO_FLOAT[ch], s)
     point = 0
+
     def to_float(f, n):
         nonlocal point
         if n == -1:
@@ -51,7 +55,9 @@ def str2float(s):
         else:
             point = point * 10
             return f + n / point
+
     return reduce(to_float, nums, 0.0)
+
 
 print(str2float('0'))
 print(str2float('123.456'))
