@@ -1,20 +1,65 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+import sys
+import os
+from PyQt5.QtWidgets import (QLabel, QGridLayout, QLineEdit, QWidget, QToolTip,
+                             QPushButton, QApplication, QDesktopWidget)
+from PyQt5 import QtCore
 
 
-def is_palindrome(n):
-    str_n = str(n)
-    len2 = int(len(str_n)/2)
-    str1 = str_n[:len2]
-    str2 = str_n[::-1][:len2]
-    return str1 == str2
+class Example(QWidget):
+    def __init__(self):
+        super().__init__()
+
+        self.init_ui()
+
+    def init_ui(self):
+        grid = QGridLayout()
+        grid.setSpacing(10)
+
+        distance = QLabel('Distance(1-9,0.5):')
+        distance_edit = QLineEdit('1')
+        # distance_edit.setText('1')
+        grid.addWidget(distance, 1, 0)
+        grid.addWidget(distance_edit, 1, 1)
+
+        btn = QPushButton('Jump!', self)
+        btn.clicked.connect(self.do_msk)
+        # self.connect(btn, QtCore.SIGNAL('clicked()'), self.do_msk)
+
+        grid.addWidget(btn, 2, 1)
+
+        self.setLayout(grid)
+
+        # QToolTip.setFont(QFont('SansSerif', 10))
+        #
+        # self.setToolTip('This is a <b>QWidget</b> widget')
+        #
+        # btn = QPushButton('Button', self)
+        # btn.setToolTip('This is a <b>QPushButton</b> widget')
+        # #
+        # btn.resize(btn.sizeHint())
+        # btn.move(10, 10)
+
+        self.setGeometry(300, 300, 350, 100)
+        self.setWindowTitle('Jump to 999')
+        # self.resize(250, 150)
+        self.center()
+        self.show()
+
+    def center(self):
+        qr = self.frameGeometry()
+        cp = QDesktopWidget().availableGeometry().center()
+        qr.moveCenter(cp)
+        self.move(qr.topLeft())
+
+    def do_msk(self):
+        k = self.distance_edit.text()
+        os.system("adb shell monkey -f sdcard/Documents/m7 1")
+        os.system(k)
 
 
-# 测试:
-output = filter(is_palindrome, range(1, 1000))
-print('1~1000:', list(output))
-if list(filter(is_palindrome, range(1, 200))) == [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 22, 33, 44, 55, 66, 77, 88, 99, 101,
-                                                  111, 121, 131, 141, 151, 161, 171, 181, 191]:
-    print('测试成功!')
-else:
-    print('测试失败!')
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    ex = Example()
+    sys.exit(app.exec_())
