@@ -2,9 +2,7 @@
 # -*- coding: utf-8 -*-
 import sys
 import os
-from PyQt5.QtWidgets import (QLabel, QGridLayout, QLineEdit, QWidget, QToolTip,
-                             QPushButton, QApplication, QDesktopWidget)
-from PyQt5 import QtCore
+from PyQt5.QtWidgets import *
 
 
 class Example(QWidget):
@@ -20,14 +18,20 @@ class Example(QWidget):
         distance = QLabel('Distance(1-9,0.5):')
         distance_edit = QLineEdit('1')
         # distance_edit.setText('1')
+        print(distance_edit.text())
         grid.addWidget(distance, 1, 0)
         grid.addWidget(distance_edit, 1, 1)
 
-        btn = QPushButton('Jump!', self)
-        btn.clicked.connect(self.do_msk)
+        distance_edit.returnPressed.connect(lambda: self.do_msk(distance_edit.text()))
+        # self.connect(self.distance_edit, SIGNAL("returnPressed()"), self.do_msk)
+        # distance.move(10, 10)
+        # distance_edit.move(10, 70)
+
+        # btn = QPushButton('Jump!', self)
+        # btn.clicked.connect(self.do_msk)
         # self.connect(btn, QtCore.SIGNAL('clicked()'), self.do_msk)
 
-        grid.addWidget(btn, 2, 1)
+        # grid.addWidget(btn, 2, 1)
 
         self.setLayout(grid)
 
@@ -41,7 +45,7 @@ class Example(QWidget):
         # btn.resize(btn.sizeHint())
         # btn.move(10, 10)
 
-        self.setGeometry(300, 300, 350, 100)
+        self.setGeometry(300, 300, 350, 50)
         self.setWindowTitle('Jump to 999')
         # self.resize(250, 150)
         self.center()
@@ -53,10 +57,11 @@ class Example(QWidget):
         qr.moveCenter(cp)
         self.move(qr.topLeft())
 
-    def do_msk(self):
-        k = self.distance_edit.text()
-        os.system("adb shell monkey -f sdcard/Documents/m7 1")
-        os.system(k)
+    def do_msk(self, n):
+        # text = self.distance_edit.text()
+        # k = text.toStdstring(text)
+        print(n)
+        # os.system("adb shell monkey -f sdcard/script/" + k + ".txt 1")
 
 
 if __name__ == '__main__':
